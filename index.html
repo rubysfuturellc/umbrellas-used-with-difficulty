@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umbrellas Used With Difficulty</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #111; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+  video { display: block; width: 100vw; height: calc(100vh - 64px); object-fit: contain; background: #000; }
+  .bar { height: 64px; display: flex; align-items: center; justify-content: center; }
+  button { font: 600 18px/1 system-ui, sans-serif; color: #111; background: #eee; border: 0; border-radius: 6px; padding: 12px 26px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid #8ab4f8; outline-offset: 2px; }
+</style>
+</head>
+<body>
+<video id="v" src="./video.mp4" preload="auto" playsinline controls></video>
+<div class="bar"><button id="pp" type="button">Play</button></div>
+<script>
+  const v = document.getElementById("v"), b = document.getElementById("pp");
+  const sync = () => { b.textContent = v.paused ? "Play" : "Pause"; };
+  b.addEventListener("click", () => { v.paused ? v.play() : v.pause(); });
+  v.addEventListener("play", sync); v.addEventListener("pause", sync); v.addEventListener("ended", sync);
+  document.addEventListener("keydown", (e) => {
+    if (e.code === "Space" || e.key === "k") { e.preventDefault(); v.paused ? v.play() : v.pause(); }
+  });
+</script>
+</body>
+</html>
